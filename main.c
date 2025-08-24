@@ -6,7 +6,7 @@ int main()
 {
     int choice;
     AddressBook addressBook;
-    addressBook contactCount = 0;
+    addressBook.contactCount = 0; // Fix: initialize contactCount member
 
     do {
         printf("\nAddress Book Menu:\n");
@@ -34,7 +34,13 @@ int main()
                 deleteContact(&addressBook);
                 break;
             case 5:          
-                listContacts(&addressBook, sortChoice);
+                // Fix: declare and get sortChoice before calling listContacts
+                {
+                    int sortChoice = 0;
+                    printf("Enter sort option (e.g., 0 for none): ");
+                    scanf("%d", &sortChoice);
+                    listContacts(&addressBook, sortChoice);
+                }
                 break;
             case 6:
                 printf("Saving and Exiting...\n");
@@ -45,5 +51,5 @@ int main()
         }
     } while (choice != 6);
     
-       return 0;
+    return 0;
 }
